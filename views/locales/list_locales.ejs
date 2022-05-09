@@ -1,34 +1,30 @@
 <%- include('../base_header'); -%>
 
-
 <body>
 
-    <h1>Bienvenidos a la frase aleatoria</h1>
-    <a href="/insertar">Insertar Frases</a>
+    <h1>Listado Locales</h1>
 
     <div class="container">
 
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Esta Abierto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i = 0; i < locales.length; i++) { %>
+                    <tr>
+                        <td><%= locales[i]._id %></td>
+                        <td><%= locales[i].nombre %></td>
+                        <td><%= locales[i].estaAbierto %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
 
-        <div class="card">
-            <!-- Cover -->
-            <div class="card__cover container">
-
-                <!-- The content -->
-                <%= frase %>
-            </div>
-
-            <!-- Content -->
-            <div class="card__content container">
-                <!-- Text -->
-                <div class="container__content">
-                    Una Frase aleatoria de
-                </div>
-
-                <!-- Separator line -->
-                <div class="container__separator"></div>
-            </div>
-            <%= author %>
-        </div>
     </div>
 </body>
-<%- include('base_footer'); -%>
+<%- include('../base_footer'); -%>

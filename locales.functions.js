@@ -5,7 +5,11 @@ const mBebida = require('./models/bebida.model')
 const get_locales = async (req, res) => {
 
     const locales = await mLocales.find({}).sort({'nombre': 1})
-    res.render('pages/about');
+
+    const data = {
+        locales:locales
+    }
+    res.render('locales/list_locales', data);
 
 }
 
