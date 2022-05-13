@@ -69,6 +69,43 @@ const get_noches = async (req, res) => {
     res.status(200).json(noches)
 }
 
+const get_sabado_or_resaca = async (req, res) => {
+
+    const queryOr = {
+        $or:[
+            {dia_semana:'Sabado'},
+            {es_resaca:true}
+        ]
+    }
+
+    const noches = await mNoche.find(queryOr)
+        .sort({'createdAt': -1})
+        .populate('locales cubatas.tipo_bebida')
+
+}
+
+const get_noches_malas = async (req, res) => {
+    const queryOr = {
+        $and:[
+            {dia_semana:'Sabado'},
+            {es_resaca:true},
+            {tengoDolor:true}
+        ]
+    }
+
+    const noches = await mNoche.find(queryOr)
+        .sort({'createdAt': -1})
+        .populate('locales cubatas.tipo_bebida')
+}
+
+const get_noches_en_grietas = async (req, res) => {
+    const queryDb = {'locales.nombre':'grietas'}
+    const noches = await mNoche.find(queryDb)
+        .sort({'createdAt': -1})
+        .populate('locales cubatas.tipo_bebida')
+
+}
+
 const get_one_noche = async (req, res) => {
     const {query, params, body} = req
 
@@ -78,6 +115,24 @@ const get_one_noche = async (req, res) => {
         .populate('locales cubatas.tipo_bebida')
 
     // Devuelve 1 array de noches con los datos de los locales y las cubatas
+
+    let queryDb = {
+        $or:[
+            {
+                "quantity": {
+                  $lt:20
+                }
+            }, {
+                "price": 10
+            },{
+              "price":{
+                $gt:35
+              }
+        }
+        ]
+    }
+
+
     const noches = await mNoche.find()
         .sort({'createdAt': -1})
         .populate('locales cubatas.tipo_bebida')
