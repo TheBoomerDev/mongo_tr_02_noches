@@ -4,6 +4,10 @@ a{
 
 }
 
+h1{
+    color:red;
+}
+
 .container {
     align-items: center;
     display: flex;
@@ -50,3 +54,4 @@ a{
     height: 1px;
     width: 100%;
 }
+
